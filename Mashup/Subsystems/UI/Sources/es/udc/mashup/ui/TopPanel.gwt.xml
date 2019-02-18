@@ -1,0 +1,19 @@
+<module>
+
+	<!-- Inherit the core Web Toolkit stuff.                  -->
+	<inherits name='com.google.gwt.user.User'/>
+	
+	<!-- Inherit Google Maps GWT API.                         -->	
+	<inherits name='com.mapitz.gwt.googleMaps.GoogleMaps' />
+	
+    <!-- App entry point class.                               -->
+	<entry-point class='es.udc.mashup.ui.client.search.TopPanel'/>
+	
+    <!-- Servlets for services.                               -->
+	<servlet path="/VirtualCRMService" 
+	         class="es.udc.mashup.ui.server.virtualcrm.VirtualCRMServiceImpl"/>
+	
+	<!-- Stylesheet.                                          -->
+	<stylesheet src='Mashup.css'/>	
+  
+</module>

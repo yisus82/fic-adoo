@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE project [
+    <!ENTITY CommonProperties SYSTEM "../../CommonProperties.xml">
+<!ENTITY CommonPathReferences SYSTEM "../../CommonPathReferences.xml">
+<!ENTITY CommonTasks SYSTEM "../../CommonTasks.xml">
+]>
+
+<!-- ======================================================================= -->
+<!--                          "InternalCRM" build file                            -->
+<!-- ======================================================================= -->
+
+<project name="InternalCRM" default="compile" basedir=".">
+
+	<!-- ============================  Properties ============================== -->
+
+	<property name="mashup.home" value="${basedir}/../../.." />
+    &CommonProperties;
+    &CommonPathReferences;
+    &CommonTasks;
+
+    <property name="internalcrm.projectname" value="InternalCRM" />
+	<property name="internalcrm.soap.wsdl"
+	          value="${internalcrm.sources}/es/udc/mashup/internalcrm/service/wsdl" />
+	<property name="internalcrm.soap.wsdlfile"
+	          value="${internalcrm.soap.wsdl}/InternalCRM.wsdl" />
+	<property name="internalcrm.soap.wsdeploymentfile"
+	          value="${internalcrm.soap.wsdl}/deploy.wsdd" />
+	<property name="internalcrm.soap.adminserviceurl"
+	          value="http://${ws.host}:${ws.port}/${mashup.name}/services/AdminService" />
+	<property name="internalcrm.soap.serviceurl"
+	          value="http://${ws.host}:${ws.port}/${mashup.name}/services/InternalCRM" />
+	<property name="internalcrm.soap.namespace"
+	          value="http://ws.udc.es/internalcrm/soap" />
+
+	<!-- ============================ "init" target ============================ -->
+
+	<target name="init">
+		<echo>
+--------------------------------------------------------------------------------
+Running build file for subsystem "${internalcrm.projectname}" ...
+--------------------------------------------------------------------------------
+        </echo>
+	</target>
+
+	<!-- ====================== "compileservicedef" target ====================== -->
+
+	<target name="compileservicedef" depends="init">
+		<mkdir dir="${internalcrm.classes}" />
+		<javac srcdir="${internalcrm.sources}"
+		       destdir="${internalcrm.classes}"
+		       classpathref="mashup.classpath"
+		       debug="${javac.debug}"
+		       optimize="${javac.optimize}"
+		       deprecation="${javac.deprecation}"
+		       includes="es/udc/mashup/internalcrm/service/servicedef/*.java" />
+	</target>
+
+	<!-- ======================== "java2wsdl" target =========================== -->
+
+	<target name="java2wsdl" depends="compileservicedef">
+		<mkdir dir="${internalcrm.soap.wsdl}" />
+		<axis-java2wsdl output="${internalcrm.soap.wsdlfile}"
+		                location="${internalcrm.soap.serviceurl}"
+		                namespace="${internalcrm.soap.namespace}"
+		                classname="es.udc.mashup.internalcrm.service.servicedef.InternalCRM">
+			<classpath refid="mashup.classpath" />
+		</axis-java2wsdl>
+	</target>
+
+	<!-- ======================== "wsdl2java" target =========================== -->
+
+	<target name="wsdl2java" depends="java2wsdl">
+		<axis-wsdl2java output="."
+		                serverside="true"
+		                url="file:${internalcrm.soap.wsdlfile}">
+			<mapping namespace="${internalcrm.soap.namespace}"
+			         package="es.udc.mashup.internalcrm.service.wsdl" />
+		</axis-wsdl2java>
+	</target>
+
+	<!-- ========================== "compile" target =========================== -->
+
+	<target name="compile" depends="init">
+		<mkdir dir="${internalcrm.classes}" />
+		<javac srcdir="${internalcrm.sources}"
+		       destdir="${internalcrm.classes}"
+		       classpathref="mashup.classpath"
+		       debug="${javac.debug}"
+		       optimize="${javac.optimize}"
+		       deprecation="${javac.deprecation}" />
+	</target>
+
+	<!-- ========================= "cleanclasses" target ======================= -->
+
+	<target name="cleanclasses" depends="init">
+		<delete dir="${internalcrm.classes}" />
+	</target>
+
+	<!-- ========================== "rebuild" target =========================== -->
+
+	<target name="rebuild" depends="cleanclasses, wsdl2java, compile" />
+
+	<!-- ============================ "jar" target ============================ -->
+
+	<target name="jar" depends="wsdl2java, compile">
+		<mkdir dir="${internalcrm.jars}" />
+		<jar jarfile="${internalcrm.jars}/${internalcrm.jar}"
+		     basedir="${internalcrm.classes}" />
+	</target>
+
+	<!-- ========================= "deployws" target ========================== -->
+
+	<target name="deployws" depends="init">
+		<axis-admin url="${internalcrm.soap.adminserviceurl}"
+		            xmlfile="${internalcrm.soap.wsdeploymentfile}" />
+	</target>
+
+	<!-- =========================== "clean" target =========================== -->
+
+	<target name="clean" depends="init">
+		<delete dir="${internalcrm.build}" />
+		<delete>
+			<fileset dir="${internalcrm.sources}"
+			         includes="es/udc/mashup/internalcrm/service/soap/wsdl/**"
+			         excludes="es/udc/mashup/internalcrm/service/soap/wsdl/InternalCRMSoapBindingImpl.java" />
+		</delete>
+	</target>
+
+</project>

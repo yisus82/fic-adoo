@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cache-entry>
+	<generated-type-hash class="es.udc.mashup.ui.client.virtualcrm.GeographicPointJTO_FieldSerializer" hash="4BB602CB48FEC0F7D68ACEB788A717FF"/>
+	<generated-type-hash class="es.udc.mashup.ui.client.virtualcrm.VirtualCRMService_TypeSerializer" hash="1E046DB09ABF20659F21BAEE8D845D4D"/>
+	<generated-type-hash class="com.google.gwt.user.client.rpc.SerializableException_FieldSerializer" hash="1CB9B63ABEC9BE7E663F6C56AA395208"/>
+	<generated-type-hash class="es.udc.mashup.ui.client.virtualcrm.VirtualCRMService_Proxy" hash="820512C97516598CAC8142415E6C50B1"/>
+	<generated-type-hash class="es.udc.mashup.ui.client.virtualcrm.LeadJTO_FieldSerializer" hash="54D177196EF63FFB71746498DF7A8828"/>
+	<rebind-decision in="com.google.gwt.user.client.ui.impl.TextBoxImpl" out="com.google.gwt.user.client.ui.impl.TextBoxImpl"/>
+	<rebind-decision in="com.google.gwt.user.client.impl.HTTPRequestImpl" out="com.google.gwt.user.client.impl.HTTPRequestImpl"/>
+	<rebind-decision in="com.google.gwt.user.client.impl.DOMImpl" out="com.google.gwt.user.client.impl.DOMImplSafari"/>
+	<rebind-decision in="com.google.gwt.user.client.impl.HistoryImpl" out="com.google.gwt.user.client.impl.HistoryImplSafari"/>
+	<rebind-decision in="com.google.gwt.user.client.ui.impl.FormPanelImpl" out="com.google.gwt.user.client.ui.impl.FormPanelImplSafari"/>
+	<rebind-decision in="es.udc.mashup.ui.client.virtualcrm.VirtualCRMService" out="es.udc.mashup.ui.client.virtualcrm.VirtualCRMService_Proxy"/>
+	<rebind-decision in="com.google.gwt.user.client.ui.impl.PopupImpl" out="com.google.gwt.user.client.ui.impl.PopupImpl"/>
+	<rebind-decision in="es.udc.mashup.ui.client.search.TopPanel" out="es.udc.mashup.ui.client.search.TopPanel"/>
+</cache-entry>

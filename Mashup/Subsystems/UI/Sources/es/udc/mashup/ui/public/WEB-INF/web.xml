@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
+
+	<distributable/>
+
+	<servlet>
+    	<display-name>AxisServlet</display-name>
+    	<servlet-name>AxisServlet</servlet-name>
+   	 	<servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class>
+  	</servlet>
+
+  	<servlet-mapping>
+    	<servlet-name>AxisServlet</servlet-name>
+    	<url-pattern>/services/*</url-pattern>
+  	</servlet-mapping>
+
+	<servlet>
+	    <display-name>VirtualCRMService</display-name>
+		<servlet-name>VirtualCRMService</servlet-name>
+		<servlet-class>es.udc.mashup.ui.server.virtualcrm.VirtualCRMServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>VirtualCRMService</servlet-name>
+		<url-pattern>/VirtualCRMService</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+	    <display-name>LastLeadsRSS</display-name>
+		<servlet-name>LastLeadsRSS</servlet-name>
+		<servlet-class>es.udc.mashup.ui.server.rss.servlet.LastLeadsRSSServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>LastLeadsRSS</servlet-name>
+		<url-pattern>/LastLeadsRSS</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+        <welcome-file>TopPanel.html</welcome-file>
+    </welcome-file-list>
+
+</web-app>

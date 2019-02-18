@@ -1,0 +1,20 @@
+<!-- ======================================================================= -->
+<!--                              Common tasks                               -->
+<!-- ======================================================================= -->
+
+<!--
+The following files must be included first (and in this order):
+
+- CommonPathReferences.xml
+-->
+
+<!-- ============================= Axis tasks ============================== -->
+
+<taskdef name="axis-wsdl2java" classpathref="mashup.classpath"
+    classname="org.apache.axis.tools.ant.wsdl.Wsdl2javaAntTask"/>
+
+<taskdef name="axis-java2wsdl" classpathref="mashup.classpath"
+    classname="org.apache.axis.tools.ant.wsdl.Java2WsdlAntTask"/>
+
+<taskdef name="axis-admin" classpathref="mashup.classpath"
+    classname="org.apache.axis.tools.ant.axis.AdminClientTask"/>

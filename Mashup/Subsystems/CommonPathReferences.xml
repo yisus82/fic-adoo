@@ -1,0 +1,46 @@
+<!-- ======================================================================= -->
+<!--                         Common path references                          -->
+<!-- ======================================================================= -->
+
+<!--
+The following files must be included first (and in this order):
+
+- CommonProperties.xml
+-->
+
+<!-- Classpath required by Mashup -->
+<path id="mashup.requiredclasspath">
+    <fileset dir="${wsjavaexamplesutil.lib}">
+        <include name="${wsjavaexamplesutil.jars}"/>
+    </fileset>
+    <fileset dir="${gwt.lib}">
+        <include name="${gwt.jars}"/>
+    </fileset>
+    <fileset dir="${gmapsgwt.lib}">
+        <include name="${gmapsgwt.jars}"/>
+    </fileset>
+	<fileset dir="${jdom.lib}">
+        <include name="${jdom.jars}"/>
+    </fileset>
+    <fileset dir="${codec.lib}">
+        <include name="${codec.jars}"/>
+    </fileset>
+    <fileset dir="${httpclient.lib}">
+        <include name="${httpclient.jars}"/>
+    </fileset>
+    <fileset dir="${servletapi.lib}">
+    	<include name="${servletapi.jars}"/>
+    </fileset>
+    <fileset dir="${axis.lib}">
+        <include name="${axis.jars}"/>
+    </fileset>
+</path>
+
+<!-- Mashup classpath -->
+<path id="mashup.classpath">
+    <path refid="mashup.requiredclasspath"/>
+    <dirset dir="${mashup.subsystems}">
+        <include name="*/Build/Classes"/>
+    </dirset>
+    <dirset dir="${propertiesconfiguration.home}"/>
+</path>

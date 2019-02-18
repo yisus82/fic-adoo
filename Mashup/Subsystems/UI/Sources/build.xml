@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE project [
+    <!ENTITY CommonProperties SYSTEM "../../CommonProperties.xml">
+<!ENTITY CommonPathReferences SYSTEM "../../CommonPathReferences.xml">
+]>
+
+<!-- ======================================================================= -->
+<!--                          "UI" build file                            -->
+<!-- ======================================================================= -->
+
+<project name="UI" default="compile" basedir=".">
+
+	<!-- ============================  Properties ============================== -->
+
+	<property name="mashup.home" value="${basedir}/../../.." />
+    &CommonProperties;
+    &CommonPathReferences;
+
+    <property name="ui.projectname" value="UI" />
+	<property name="ui.build" value="${ui.home}/Build" />
+	<property name="ui.classes" value="${ui.build}/Classes" />
+	<property name="ui.gwtcompiler.outputdir"
+	          value="${ui.build}/GWTCompilerOutput" />
+	<property name="ui.gwtmodule" value="es.udc.mashup.ui.TopPanel" />
+	<property name="ui.gwturl"
+	          value="es.udc.mashup.ui.TopPanel/TopPanel.html" />
+	<property name="ui.webappname" value="Mashup" />
+	<property name="ui.wars" value="${ui.build}/Wars" />
+	<property name="ui.war" value="${ui.wars}/${ui.webappname}.war" />
+
+	<!-- ============================ "init" target ============================ -->
+
+	<target name="init">
+		<echo>
+--------------------------------------------------------------------------------
+Running build file for subsystem "${ui.projectname}" ...
+--------------------------------------------------------------------------------
+        </echo>
+	</target>
+
+	<!-- ========================== "compile" target =========================== -->
+
+	<target name="compile" depends="init">
+		<mkdir dir="${ui.classes}" />
+		<javac srcdir="${ui.sources}"
+		       destdir="${ui.classes}"
+		       classpathref="mashup.classpath"
+		       debug="${javac.debug}"
+		       optimize="${javac.optimize}"
+		       deprecation="${javac.deprecation}" />
+	</target>
+
+	<!-- ========================= "cleanclasses" target ======================= -->
+
+	<target name="cleanclasses" depends="init">
+		<delete dir="${ui.classes}" />
+	</target>
+
+	<!-- ========================== "rebuild" target =========================== -->
+
+	<target name="rebuild" depends="cleanclasses, compile" />
+
+	<!-- ==================== "rungwtcompiler" target ========================== -->
+
+	<target name="rungwtcompiler" depends="compile">
+		<java dir="${ui.build}"
+		      fork="true"
+		      classpathref="mashup.classpath"
+		      classname="${gwt.compiler}">
+
+			<classpath refid="mashup.classpath" />
+			<classpath>
+				<pathelement path="${ui.sources}" />
+			</classpath>
+
+			<arg value="-out" />
+			<arg value="${ui.gwtcompiler.outputdir}" />
+			<arg value="${ui.gwtmodule}" />
+
+		</java>
+	</target>
+
+	<!-- ===================== "rungwtshell" target =========================== -->
+
+	<target name="rungwtshell">
+		<java dir="${ui.build}"
+		      fork="true"
+		      classpathref="mashup.classpath"
+		      classname="${gwt.shell}">
+
+			<classpath refid="mashup.classpath" />
+			<classpath>
+				<pathelement path="${ui.sources}" />
+			</classpath>
+
+			<arg value="-out" />
+			<arg value="${ui.gwtcompiler.outputdir}" />
+			<arg value="${ui.gwturl}" />
+
+		</java>
+	</target>
+
+	<!-- ============================= "war" target ============================ -->
+
+	<target name="war">
+		<mkdir dir="${ui.wars}" />
+		<war warfile="${ui.war}"
+		     webxml="${ui.gwtcompiler.outputdir}/${ui.gwtmodule}/WEB-INF/web.xml">
+			<fileset dir="${ui.gwtcompiler.outputdir}/${ui.gwtmodule}"
+			         excludes="**/WEB-INF/*" />
+			<lib dir="${wsjavaexamplesutil.lib}"
+			     includes="${wsjavaexamplesutil.jars}" />
+			<lib dir="${axis.lib}" includes="${axis.jars}"/>
+			<lib dir="${codec.lib}" includes="${codec.jars}"/>
+			<lib dir="${gwt.lib}" includes="${gwt.serverjars}" />
+			<lib dir="${httpclient.lib}" includes="${httpclient.jars}"/>
+			<lib dir="${jdom.lib}" includes="${jdom.jars}"/>
+			<lib dir="${internalcrm.jars}" includes="${internalcrm.jar}" />
+			<lib dir="${virtualcrm.jars}" includes="${virtualcrm.jar}" />
+			<classes dir="${ui.classes}"
+			         includes="es/udc/mashup/ui/client/virtualcrm/**" />
+			<classes dir="${ui.classes}"
+			         includes="es/udc/mashup/ui/server/**" />
+			<classes dir="${propertiesconfiguration.home}"
+			         includes="ConfigurationParameters.properties" />
+		</war>
+	</target>
+
+	<!-- ======================== "deploywar" target ========================== -->
+
+	<!-- IMPORTANT: I set "quiet" to "true" to avoid file-sharing problems in
+         "WEB-INF/lib" on MS-Windows when re-deploying the Web application
+         with Tomcat running.
+     -->
+
+	<target name="deploywar" depends="war">
+		<delete dir="${tomcat.webapps}/${ui.webappname}" quiet="true" />
+		<mkdir dir="${tomcat.webapps}/${ui.webappname}" />
+		<unwar src="${ui.war}" dest="${tomcat.webapps}/${ui.webappname}" />
+	</target>
+
+	<!-- =========================== "clean" target =========================== -->
+
+	<target name="clean" depends="init">
+		<delete dir="${ui.build}" />
+	</target>
+
+</project>

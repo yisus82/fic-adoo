@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="Subsystems/UI/Sources"/>
+	<classpathentry kind="src" path="Subsystems/VirtualCRM/Sources"/>
+	<classpathentry kind="src" path="Subsystems/InternalCRM/Sources"/>
+	<classpathentry kind="lib" path="PropertiesConfiguration"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/GWT"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/AXIS"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/COMMONS"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JDOM"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/TOMCAT"/>
+	<classpathentry kind="lib" path="WS-JavaExamples-Util.jar" sourcepath="C:/Files/Universidad/Practicas/ADOO/WS-JavaExamples/Subsystems/Util/Sources"/>
+	<classpathentry kind="output" path="Build/Eclipse"/>
+</classpath>

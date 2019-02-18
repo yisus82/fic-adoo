@@ -1,0 +1,140 @@
+<!-- ======================================================================= -->
+<!--                              Common properties                          -->
+<!-- ======================================================================= -->
+
+<!--
+The following properties must be defined before referencing this file in
+a build.xml file:
+
+- mashup.home
+-->
+
+<!-- ====================== Development environment ======================== -->
+
+<!--
+The following properties must be adapted to your environment:
+
+- tomcat.home
+- jdom.home
+- codec.home
+- httpclient.home
+- axis.home
+- wsjavaexamples.lib
+- gwt.home
+- gmapsgwt.home
+-->
+
+<!-- Tomcat -->
+<!--
+<property name="tomcat.home" value="/home/i/infjpf02/NOBACKUP/apache-tomcat-local-5.5.17"/>
+-->
+<property name="tomcat.home" value="D:\Programas\apache-tomcat-6.0.10"/>
+<property name="tomcat.webapps" value="${tomcat.home}/webapps"/>
+
+<!--  Servlet API -->
+<!--
+<property name="servletapi.lib" value="${tomcat.home}/common/lib"/>
+-->
+<property name="servletapi.lib" value="${tomcat.home}/lib"/>
+<property name="servletapi.jars" value="servlet-api.jar"/>
+
+<!--  JDOM -->
+<!--
+<property name="jdom.home" value="/opt/ISyADOO-0607/jdom-1.0"/>
+-->
+<property name="jdom.home" value="D:\Programas\jdom-1.0"/>
+<property name="jdom.lib" value="${jdom.home}/build"/>
+<property name="jdom.jars" value="*.jar"/>
+
+<!--  Jakarta Commons Codec -->
+<!--
+<property name="codec.home" value="/opt/ISyADOO-0607/commons-codec-1.3"/>
+-->
+<property name="codec.home" value="D:\Programas\commons-httpclient-3.0.1\commons-codec-1.3"/>
+<property name="codec.lib" value="${codec.home}"/>
+<property name="codec.jars" value="*.jar"/>
+
+<!--  Jakarta Commons HttpClient -->
+<!--
+<property name="httpclient.home" value="/opt/ISyADOO-0607/commons-httpclient-3.0.1"/>
+-->
+<property name="httpclient.home" value="D:\Programas\commons-httpclient-3.0.1"/>
+<property name="httpclient.lib" value="${httpclient.home}"/>
+<property name="httpclient.jars" value="*.jar"/>
+
+<!-- Axis -->
+<!--
+<property name="axis.home" value="/opt/ISyADOO-0607/axis-1_4"/>
+-->
+<property name="axis.home" value="D:\Programas\axis-1_4"/>
+<property name="axis.lib" value="${axis.home}/lib"/>
+<property name="axis.jars" value="*.jar"/>
+
+<!-- WS-JavaExamples' Util library -->
+<property name="wsjavaexamplesutil.lib"
+          value="${mashup.home}"/>
+<property name="wsjavaexamplesutil.jars" value="*.jar"/>
+
+<!-- GWT (it includes the Servlets API) -->
+<!--
+<property name="gwt.home" value="/opt/ISyADOO-0607/gwt-linux-1.2.22"/>
+-->
+<property name="gwt.home" value="D:\Programas\Google\gwt-windows-1.5.2"/>
+<property name="gwt.lib" value="${gwt.home}"/>
+<property name="gwt.jars" value="*.jar"/>
+<property name="gwt.serverjars" value="gwt-servlet.jar"/>
+
+<!-- Google Maps GWT  -->
+<!--
+<property name="gmapsgwt.home" value="/opt/ISyADOO-0607/googlemaps_gwt_1_5_2"/>
+<property name="gmapsgwt.lib" value="${gmapsgwt.home}/lib"/>
+-->
+<property name="gmapsgwt.home" value="D:\Programas\Google"/>
+<property name="gmapsgwt.lib" value="${gmapsgwt.home}"/>
+<property name="gmapsgwt.jars" value="*.jar"/>
+<property name="gwt.compiler" value="com.google.gwt.dev.GWTCompiler"/>
+<property name="gwt.shell" value="com.google.gwt.dev.GWTShell"/>
+
+<!-- ==================== Development environment options ================== -->
+
+<!-- Java compiler -->
+<property name="build.compiler" value="modern"/>
+<property name="javac.debug" value="on"/>
+<property name="javac.optimize" value="off"/>
+<property name="javac.deprecation" value="on"/>
+
+<!-- Java to WSDL tool -->
+<property name="java2wsdl.tool" value="org.apache.axis.wsdl.Java2WSDL"/>
+
+<!-- Host and port of web services -->
+<property name="ws.host" value="localhost"/>
+<property name="ws.port" value="8080"/>
+
+<!-- ============================= Subsystems ============================== -->
+
+<!-- Mashup properties -->
+<property name="mashup.name" value="Mashup"/>
+<property name="mashup.version" value="1.1"/>
+<property name="mashup.subsystems" value="${mashup.home}/Subsystems"/>
+<property name="propertiesconfiguration.home"
+          value="${mashup.home}/PropertiesConfiguration"/>
+
+<!-- VirtualCRM subsystem properties -->
+<property name="virtualcrm.home" value="${mashup.subsystems}/VirtualCRM" />
+<property name="virtualcrm.sources" value="${virtualcrm.home}/Sources"/>
+<property name="virtualcrm.build" value="${virtualcrm.home}/Build"/>
+<property name="virtualcrm.classes" value="${virtualcrm.build}/Classes"/>
+<property name="virtualcrm.jars" value="${virtualcrm.build}/Jars"/>
+<property name="virtualcrm.jar" value="VirtualCRM.jar"/>
+
+<!-- UI subsystem properties -->
+<property name="ui.home" value="${mashup.subsystems}/UI" />
+<property name="ui.sources" value="${ui.home}/Sources"/>
+
+<!-- InternalCRM subsystem properties -->
+<property name="internalcrm.home" value="${mashup.subsystems}/InternalCRM" />
+<property name="internalcrm.sources" value="${internalcrm.home}/Sources"/>
+<property name="internalcrm.build" value="${internalcrm.home}/Build"/>
+<property name="internalcrm.classes" value="${internalcrm.build}/Classes"/>
+<property name="internalcrm.jars" value="${internalcrm.build}/Jars"/>
+<property name="internalcrm.jar" value="InternalCRM.jar"/>

@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE project [
+    <!ENTITY CommonProperties SYSTEM "CommonProperties.xml">
+<!ENTITY CommonPathReferences SYSTEM "CommonPathReferences.xml">
+]>
+
+<!-- ======================================================================= -->
+<!--                  "Mashup" build file                                    -->
+<!-- ======================================================================= -->
+
+<project name="Mashup" default="all" basedir=".">
+
+	<!-- ============================  Properties ============================== -->
+
+	<property name="mashup.home" value="${basedir}/.." />
+    &CommonProperties;
+    &CommonPathReferences;
+
+    <property name="mashup.build" value="${mashup.home}/Build" />
+	<property name="mashup.sourcedistname"
+	          value="${mashup.name}-src-${mashup.version}" />
+	<property name="mashup.sourcedist"
+	          value="${mashup.home}/${mashup.sourcedistname}" />
+
+	<!-- ============================ "init" target ============================ -->
+
+	<target name="init">
+		<echo>
+--------------------------------------------------------------------------------
+Running build file for entire project ...
+--------------------------------------------------------------------------------
+        </echo>
+	</target>
+
+	<!-- ========================== "all" target ============================= -->
+
+	<target name="all" depends="init">
+		<ant antfile="${virtualcrm.sources}/build.xml"
+		     dir="${virtualcrm.sources}"
+		     target="jar" />
+		<ant antfile="${internalcrm.sources}/build.xml"
+		     dir="${internalcrm.sources}"
+		     target="jar" />
+		<ant antfile="${ui.sources}/build.xml"
+		     dir="${ui.sources}"
+		     target="rungwtcompiler" />
+		<ant antfile="${ui.sources}/build.xml"
+		     dir="${ui.sources}"
+		     target="deploywar" />
+	</target>
+
+	<!-- ======================== "srcdist" target ============================ -->
+
+	<target name="srcdist" depends="init">
+
+		<!-- Common files for all distributions -->
+		<patternset id="mashup.sourcedist.commonfiles1"
+		            includes="${mashup.name}/**"
+		            excludes="${mashup.name}/*.tar.gz, ${mashup.name}/*.zip, **/Build/**, **/wsdl/**, **/.*/**" />
+		<patternset id="mashup.sourcedist.commonfiles2"
+		            includes="${mashup.name}/**/wsdl/*Impl.java, ${mashup.name}/**/wsdl/Enterprise.wsdl"
+		            excludes="**/com/sforce/soap/enterprise/**" />
+
+		<!-- Create Build directory (if necessary) -->
+		<mkdir dir="${mashup.build}" />
+
+		<!-- .tar.gz distribution -->
+		<delete file="${mashup.sourcedist}.tar.gz" />
+		<tar tarfile="${mashup.sourcedist}.tar.gz"
+		     longfile="gnu"
+		     compression="gzip">
+			<tarfileset dir="${mashup.home}/..">
+				<patternset refid="mashup.sourcedist.commonfiles1" />
+			</tarfileset>
+			<tarfileset dir="${mashup.home}/..">
+				<patternset refid="mashup.sourcedist.commonfiles2" />
+			</tarfileset>
+		</tar>
+
+		<!-- .zip distribution -->
+		<delete file="${mashup.sourcedist}.zip" />
+		<zip destfile="${mashup.sourcedist}.zip">
+			<fileset dir="${mashup.home}/..">
+				<patternset refid="mashup.sourcedist.commonfiles1" />
+			</fileset>
+			<fileset dir="${mashup.home}/..">
+				<patternset refid="mashup.sourcedist.commonfiles2" />
+			</fileset>
+		</zip>
+
+	</target>
+
+</project>

@@ -1,0 +1,105 @@
+                   ********** Mashup v1.1 **********
+
+                          Jesus Angel Perez-Roca Fernandez
+          					 	djalma_fd@yahoo.es
+                             		June 2007
+
+Contents
+--------
+
+1. Software requirements
+2. Building from the source code
+3. Execution on Tomcat
+4. Execution from the GWT Shell
+
+1. Software requirements
+   ---------------------
+
+   * An implementation of J2SE 5.0 or superior.
+
+     I have used Sun's JDK 1.6.0.
+
+   * ant 1.6.5.
+
+     To manage the project.
+
+   * A Java EE compliant Web application server.
+
+     I have used Jakarta Tomcat 6.0 and tested it succesfully on Jakarta Tomcat 5.5.17 too.
+
+   * WS-JavaExamples 1.0's Util library.
+
+   * Google Web Toolkit (GWT) 1.2.22.
+
+   * Google Maps GWT 1.5.2 (http://sourceforge.net/projects/gwt).
+
+   Probably it should work with higher versions of the above packages (or with
+   minor changes).
+
+2. Building from the source code
+   -----------------------------
+
+   Extract zip file (if you are running Windows) or tar.gz (if you are running Linux)
+
+   Before compiling, you may need/want to adapt the following files:
+
+   + Subsystems/CommonProperties.xml. Go to "Development environment" section
+     and adapt the paths specified in "xxx.home" properties.
+
+   + PropertiesConfiguration/ConfigurationParameters.properties. The class
+     implementing the stateful VirtualCRMService interface is specified in
+     "VirtualCRMServiceFactory/className" property. This distribution includes a
+     mock implementation to test three typical cases (returning results,
+     throwing a runtime exception, and returning an empty list of results)
+     in cyclic order. The class implementing the GeolocationService interface is
+     specified in "GeolocationServiceFactory/className" property. The classes
+     implementing the CRMService interface are specified in
+     "GeolocationServiceFactory/className" property, adding a number who indicate
+     its sequence number (e.g. GeolocationServiceFactory/className1,
+     GeolocationServiceFactory/className2, GeolocationServiceFactory/className3,
+     and so on). When removing one of this properties, make sure there is no gap
+     in the sequence numbers (e.g. if there are many GeolocationService
+     implementations and you remove the second one, you have to rename the
+     property GeolocationServiceFactory/className3 to GeolocationServiceFactory/className2,
+     GeolocationServiceFactory/className4 to GeolocationServiceFactory/className3, and so on,
+     or you can simply change the last of the implementations and set
+     GeolocationServiceFactory/className2 as its name).
+
+   + Subsystems/UI/Sources/es/udc/mashup/ui/public/TopPanel.html. It includes a
+     valid Google Maps key for http://localhost:8080 in the Google Maps
+     JavaScript. Update if necessary.
+
+   cd Subsystems
+   ant all
+
+3. Execution on Tomcat
+   -------------------
+
+   Start Tomcat
+
+   cd Subsystems/InternalCRM/Sources
+   ant deployws
+
+4. Execution from the GWT Shell
+   ----------------------------
+
+   ***This is only necessary if developing the client-side code (GWT Java code
+      to be translated to JavaScript).***
+
+   Subsystems/UI/Sources/es/udc/mashup/ui/public/TopPanel.html includes a
+   commented Google Maps JavaScript with a valid key for http://localhost:8888.
+   Comment the previous script and uncommnet this.
+
+4.1. ant task.
+
+   Execute "rungwtshell" ant task in Subsystems/UI/Sources/build.xml
+
+4.2. Debugging the client-side code from an IDE.
+
+   For convenience, I have included MashupUITopPanel.launch in the root
+   directory of the source distribution. If you use Eclipse and name the
+   project "Mashup", you will automatically see the "MashupUITopPanel"
+   application. You can use it for debugging the client-side code.
+   "MashupUITopPanel" executes the same command as the "rungwtshell" ant task
+   (not the ant task, but the same as the ant task). Do the same for other IDEs.
+

@@ -1,0 +1,123 @@
+body {
+  background-color: #EEEEEE;
+  color: black;
+  font-family: Arial, sans-serif;
+  margin: 0px 0px 0px 0px;
+}
+
+#header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+    margin: 10px 0px 10px 0px;
+}
+
+#footer {
+    text-align: center;
+    font-weight: bold;
+    font-size: 10px;
+    color: black;
+    margin: 10px 0px 10px 0px;
+}
+
+#content {
+  padding: 10px;
+  width: 100%;
+}
+
+.Mashup-MapWidget {
+ 	border: 1px solid #AAAAAA;
+ 	margin: 0px 10px 0px 0px;
+}
+
+.Mashup-SearchToolWidget {
+	width: 500px;
+	margin: 0px 0px 0px 10px;
+}
+
+.Mashup-SearchFormWidget .gwt-Label {
+ 	margin-right: 5px;
+}
+
+.Mashup-SearchFormWidget .gwt-ListBox {
+	margin-right: 10px;
+}
+
+.Mashup-SearchFormWidget .gwt-TextBox {
+	margin-right: 10px;
+}
+
+.Mashup-StaticPagerWidget {
+	margin-top: 30px;
+	width: 100%;
+}
+
+.Mashup-PagerListWidget {
+        width: 100%;
+	border: 1px solid #AAAAAA;
+	border-spacing: 0px;
+	cursor: default;
+}
+
+.Mashup-PagerListWidget .HeaderCell {
+ 	font-weight: bold;
+ 	background-image: url(gray_gradient.gif);
+	background-repeat: repeat-x;
+}
+
+.Mashup-PagerListWidget .SelectedCell {
+	background-color: #C3D9FF;
+	background-image: url(blue_gradient.gif);
+	background-repeat: repeat-x;
+}
+
+.Mashup-PagerButtonsWidget {
+	border-left: 1px solid #AAAAAA;
+	border-right: 1px solid #AAAAAA;
+	border-bottom: 1px solid #AAAAAA;
+	background-image: url(gray_gradient.gif);
+	background-repeat: repeat-x;
+    width: 100%;
+}
+
+.Mashup-PagerButtonsWidget .InfoStatus {
+	text-align: right;
+	margin-right: 5px;
+}
+
+.Mashup-PagerButtonsWidget .ErrorStatus {
+	text-align: right;
+	margin-right: 5px;
+	color: red;
+	font-weight: bold;
+}
+
+.Mashup-PagerButtonsWidget .gwt-Button {
+	margin: 0 5px;
+}
+
+.Mashup-MessageDialogBox {
+	border: 1px solid #AAAAAA;
+	background-color: #EEEEEE;
+}
+
+.Mashup-MessageDialogBox .Caption {
+	text-align: center;
+	font-weight: bold;
+ 	background-image: url(gray_gradient.gif);
+	background-repeat: repeat-x;
+	cursor: default;
+}
+
+.Mashup-MessageDialogBox .gwt-Label {
+	padding: 3px;
+}
+
+.Mashup-MessageDialogBox .gwt-Button {
+	margin-bottom: 3px;
+}
+
+.Mashup-WarningText {
+	color: red;
+}

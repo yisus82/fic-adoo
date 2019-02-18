@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE project [
+    <!ENTITY CommonProperties SYSTEM "../../CommonProperties.xml">
+<!ENTITY CommonPathReferences SYSTEM "../../CommonPathReferences.xml">
+<!ENTITY CommonTasks SYSTEM "../../CommonTasks.xml">
+]>
+
+<!-- ======================================================================= -->
+<!--                             "VirtualCRM" build file                     -->
+<!-- ======================================================================= -->
+
+<project name="VirtualCRM" default="compile" basedir=".">
+
+	<!-- ============================  Properties ============================== -->
+
+	<property name="mashup.home" value="${basedir}/../../.." />
+    &CommonProperties;
+    &CommonPathReferences;
+	&CommonTasks;
+
+    <property name="virtualcrm.projectname" value="VirtualCRM" />
+	<property name="salesforce.soap.wsdl"
+	          value="${virtualcrm.sources}/es/udc/mashup/salesforce/service/wsdl" />
+	<property name="salesforce.soap.wsdlfile"
+	          value="${salesforce.soap.wsdl}/Enterprise.wsdl" />
+	<property name="salesforce.soap.namespace"
+	          value="http://ws.udc.es/salesforce/soap" />
+
+	<!-- ============================ "init" target ============================ -->
+
+	<target name="init">
+		<echo>
+--------------------------------------------------------------------------------
+Running build file for subsystem "${virtualcrm.projectname}" ...
+--------------------------------------------------------------------------------
+        </echo>
+	</target>
+
+	<!-- ========================== "compile" target =========================== -->
+
+	<target name="compile" depends="init">
+		<mkdir dir="${virtualcrm.classes}" />
+		<javac srcdir="${virtualcrm.sources}"
+		       destdir="${virtualcrm.classes}"
+		       classpathref="mashup.classpath"
+		       debug="${javac.debug}"
+		       optimize="${javac.optimize}"
+		       deprecation="${javac.deprecation}" />
+	</target>
+
+	<!-- ========================= "cleanclasses" target ======================= -->
+
+	<target name="cleanclasses" depends="init">
+		<delete dir="${virtualcrm.classes}" />
+	</target>
+
+	<!-- ========================== "rebuild" target =========================== -->
+
+	<target name="rebuild" depends="cleanclasses, compile" />
+
+	<!-- ============================ "jar" target ============================ -->
+
+	<target name="jar" depends="wsdl2java, compile">
+		<mkdir dir="${virtualcrm.jars}" />
+		<jar jarfile="${virtualcrm.jars}/${virtualcrm.jar}"
+		     basedir="${virtualcrm.classes}" />
+	</target>
+
+	<!-- =========================== "clean" target =========================== -->
+
+	<target name="clean" depends="init">
+		<delete dir="${virtualcrm.build}" />
+	</target>
+
+	<!-- ======================== "wsdl2java" target =========================== -->
+
+	<target name="wsdl2java">
+		<axis-wsdl2java output="."
+		                serverside="true"
+		                url="file:${salesforce.soap.wsdlfile}">
+			<mapping namespace="${salesforce.soap.namespace}"
+			         package="es.udc.mashup.salesforce.service.wsdl" />
+		</axis-wsdl2java>
+	</target>
+
+</project>
